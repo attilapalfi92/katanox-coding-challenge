@@ -1,4 +1,4 @@
-package com.katanox.api.config
+package com.katanox.api.messaging
 
 import org.springframework.amqp.core.*
 import org.springframework.amqp.rabbit.connection.ConnectionFactory

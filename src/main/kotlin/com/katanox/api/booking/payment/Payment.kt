@@ -1,4 +1,4 @@
-package com.katanox.api.booking
+package com.katanox.api.booking.payment
 
 data class Payment (
     val card_holder: String,

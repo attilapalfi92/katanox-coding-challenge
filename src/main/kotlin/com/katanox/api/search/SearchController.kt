@@ -17,6 +17,7 @@ class SearchController(
     @Value("\${env}")
     private val environment: String,
     private val logWriterService: LogInterface,
+    private val searchService: SearchService,
 ) {
 
     @PostMapping(
@@ -25,6 +26,7 @@ class SearchController(
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun search(@RequestBody request: SearchRequest): ResponseEntity<SearchResponse> {
+        val response: SearchResponse = searchService.search(request)
         val result = ArrayList(List.of<Any>())
         if (environment == "local") {
             logWriterService.logStringToConsoleOutput(result.toString())

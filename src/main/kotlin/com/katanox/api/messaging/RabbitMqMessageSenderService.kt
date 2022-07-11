@@ -1,4 +1,4 @@
-package com.katanox.api
+package com.katanox.api.messaging
 
 import org.springframework.amqp.core.AmqpTemplate
 import org.springframework.beans.factory.annotation.Value

@@ -1,6 +1,6 @@
 package com.katanox.api.booking
 
-import com.katanox.api.RabbitMqMessageSenderService
+import com.katanox.api.messaging.RabbitMqMessageSenderService
 import org.springframework.stereotype.Service
 import java.util.*
 
