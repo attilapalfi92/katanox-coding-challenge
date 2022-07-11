@@ -31,14 +31,14 @@ Check in: 01-04-2022, Check out: 03-04-2022, Hotel: A
 
 Hotel A has 2 room types and each type has a different price per day shown in the table below:
 
-| **Room ID** | **Date**       | **Available Rooms** | **Price before tax** |
-|---------|------------|-----------------|------------------|
-| R1      | 01-04-2022 | 2               | 103              |
-| R1      | 02-04-2022 | 1               | 99               |
-| R1      | 03-04-2022 | 2               | 110              |
-| R2      | 01-04-2022 | 5               | 113              |
-| R2      | 02-04-2022 | 6               | 109              |
-| R2      | 03-04-2022 | 4               | 123              |
+| **Room ID** | **Date**   | **Available Rooms** | **Price before tax** |
+|-------------|------------|---------------------|----------------------|
+| R1          | 01-04-2022 | 2                   | 103                  |
+| R1          | 02-04-2022 | 1                   | 99                   |
+| R1          | 03-04-2022 | 2                   | 110                  |
+| R2          | 01-04-2022 | 5                   | 113                  |
+| R2          | 02-04-2022 | 6                   | 109                  |
+| R2          | 03-04-2022 | 4                   | 123                  |
 
 The extra flat charges table looks like the following table
 
