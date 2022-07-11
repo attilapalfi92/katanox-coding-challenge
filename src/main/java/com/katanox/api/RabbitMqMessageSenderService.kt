@@ -1,23 +1,21 @@
-package com.katanox.api;
+package com.katanox.api
 
-import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.amqp.core.AmqpTemplate
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Component
 
 @Component
-public class RabbitMQBookingSenderService {
+class RabbitMqMessageSenderService(
+    private val rabbitTemplate: AmqpTemplate,
 
-    @Autowired
-    private AmqpTemplate rabbitTemplate;
+    @Value("\${katanox.rabbitmq.exchange}")
+    private val exchange: String,
 
-    @Value("${katanox.rabbitmq.exchange}")
-    private String exchange;
+    @Value("\${katanox.rabbitmq.routingkey}")
+    private val routingKey: String,
+) {
 
-    @Value("${katanox.rabbitmq.routingkey}")
-    private String routingkey;
-
-    public void ObjectRabbitMQSender(Object company) {
-        rabbitTemplate.convertAndSend(exchange, routingkey, company);
+    fun sendMessage(any: Any) {
+        rabbitTemplate.convertAndSend(exchange, routingKey, any)
     }
 }
