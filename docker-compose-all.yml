@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  api:
+    image: katanox-api-impl:1.0
+    ports:
+      - "127.0.0.1:8080:8080"
+    links:
+      - postgres
+      - rabbitmq
+    environment:
+      spring_datasource_url: jdbc:postgresql://postgres:5432/katanox_test
+#      spring_datasource_url: jdbc:postgresql://postgres:5432/katanox_test
+      spring_rabbitmq_host: rabbitmq
+    networks:
+      - backend
+
+  postgres:
+    image: postgres:13.5
+    container_name: katanox_test_db
+    environment:
+      - POSTGRES_USER=katanox-user
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=katanox_test
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - backend
+
+volumes:
+  postgres:
+    driver: local
+
+networks:
+  backend:
+    name: backend

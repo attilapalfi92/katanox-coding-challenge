@@ -7,8 +7,17 @@ init-testcontainers:
 	docker pull postgres:13.5
 	docker pull testcontainers/ryuk:0.3.3
 
-build: init-testcontainers
-	mvn clean compile
+build-jar: init-testcontainers
+	mvn clean package
+
+build-docker: build-jar
+	docker build . -t katanox-api-impl:1.0
+
+build-run-docker: build-docker
+	docker-compose -f docker-compose-all.yml up
+
+run-docker:
+	docker-compose -f docker-compose-all.yml up
 
 run-deps:
-	docker-compose -f docker-compose.yml up
+	docker-compose -f docker-compose-deps.yml up

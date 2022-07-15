@@ -1,3 +1,29 @@
+## System requirements
+Java 11, Maven, Docker, Docker-Compose
+
+## How to run
+### ```make build-run-docker```
+- builds api service jar
+- builds api service docker image
+- runs api service image and dependencies with docker compose
+
+Separate build and run commands are available, see Makefile for more info.
+
+### ```make run-deps```
+- runs the dependencies with docker compose
+- api service can be started with favored IDE, java -jar, etc 
+
+
+## How to access API
+
+Swagger UI is available at:
+
+http://localhost:8080/swagger-ui/index.html
+
+
+-----------------------------
+original content:
+
 # Katanox Coding Challenge
 
 The aim of this task is to refactor and extend an API using Java OR Kotlin and Spring Boot which allows users to search for
