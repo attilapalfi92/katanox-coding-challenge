@@ -12,7 +12,12 @@ class PriceService(
     private val dateConverter: DateConverter,
     private val repository: PriceRepository
 ) {
-    fun findPricesByRoomForDatesInHotel(checkin: LocalDate, checkout: LocalDate, hotelId: Long): Map<Long, Set<PriceDto>> {
+    fun findPricesByRoomForDatesInHotel(
+        checkin: LocalDate,
+        checkout: LocalDate,
+        hotelId: Long
+    ): Map<Long, Set<PriceDto>> {
+
         val dates = dateConverter.intervalToDatesOfNights(checkin, checkout)
         val records: Result<Record> = repository.findPricesForDatesInHotel(dates, hotelId)
 

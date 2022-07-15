@@ -1,5 +1,6 @@
 package com.katanox.api.search
 
+import com.katanox.api.charges.ExtraChargeService
 import com.katanox.api.prices.PriceDto
 import com.katanox.api.prices.PriceService
 import org.junit.jupiter.api.Assertions.assertArrayEquals
@@ -9,14 +10,16 @@ import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.whenever
 import java.math.BigDecimal
 import java.time.LocalDate
+import java.util.TreeSet
 import kotlin.test.assertEquals
 
 class SearchServiceTest {
 
     private val searchValidator = Mockito.mock(SearchValidator::class.java)
     private val priceService = Mockito.mock(PriceService::class.java)
+    private val extraChargeService = Mockito.mock(ExtraChargeService::class.java)
 
-    private val searchService = SearchService(searchValidator, priceService)
+    private val searchService = SearchService(searchValidator, priceService, extraChargeService)
 
     @Test
     fun `test prices are correctly calculated`() {
@@ -32,8 +35,8 @@ class SearchServiceTest {
         whenever(priceService.findPricesByRoomForDatesInHotel(checkin, checkout, hotelId))
             .thenReturn(
                 mapOf(
-                    Pair(1, listOf(priceDto(1), priceDto(2))),
-                    Pair(2, listOf(priceDto(3), priceDto(4)))
+                    Pair(1, sortedSetOf(priceDto(1), priceDto(2))),
+                    Pair(2, sortedSetOf(priceDto(3), priceDto(4)))
                 )
             )
 
