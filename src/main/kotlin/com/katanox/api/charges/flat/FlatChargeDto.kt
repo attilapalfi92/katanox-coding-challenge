@@ -18,6 +18,7 @@ data class FlatChargeDto(
             id = record.getValue(EXTRA_CHARGES_FLAT.ID),
             description = record.getValue(EXTRA_CHARGES_FLAT.DESCRIPTION),
             chargeType = FlatChargeType.ofChargeType(record.getValue(EXTRA_CHARGES_FLAT.CHARGE_TYPE)),
+            // I would handle prices as BigDecimal everywhere, but not going to change the db schema now to do it
             price = record.getValue(EXTRA_CHARGES_FLAT.PRICE),
             currency = Currency.valueOf(record.getValue(EXTRA_CHARGES_FLAT.CURRENCY)),
             hotelId = record.getValue(EXTRA_CHARGES_FLAT.HOTEL_ID)

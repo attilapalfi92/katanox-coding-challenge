@@ -1,7 +1,5 @@
 package com.katanox.api.charges.percentage
 
-import org.jooq.Record
-import org.jooq.Result
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
@@ -9,7 +7,7 @@ import java.math.BigDecimal
 class PercentageChargeService(private val repository: PercentageChargeRepository) {
 
     fun calculatePercentageCharges(hotelId: Long, firstNightPrice: BigDecimal, totalAmount: BigDecimal): Double {
-        val percentageCharges = findChargesByHotel(hotelId)
+        val percentageCharges: Set<PercentageChargeDto> = repository.findChargesByHotel(hotelId)
         var result = calculateFirstNightCharges(percentageCharges, firstNightPrice)
         result += calculateTotalAmountCharges(percentageCharges, totalAmount)
         return result
@@ -20,7 +18,7 @@ class PercentageChargeService(private val repository: PercentageChargeRepository
         firstNightPrice: BigDecimal
     ): Double {
         return percentageCharges.filter { it.appliedOn == PercentageAppliedOn.FIRST_NIGHT }
-            .sumOf { firstNightPrice.toDouble() * (1 + (it.percentage / 100)) }
+            .sumOf { (1 + (it.percentage / 100)) * firstNightPrice.toDouble() }
     }
 
     private fun calculateTotalAmountCharges(
@@ -28,11 +26,6 @@ class PercentageChargeService(private val repository: PercentageChargeRepository
         totalAmount: BigDecimal
     ): Double {
         return percentageCharges.filter { it.appliedOn == PercentageAppliedOn.TOTAL_AMOUNT }
-            .sumOf { 1 + (it.percentage / 100) * totalAmount.toDouble() }
-    }
-
-    private fun findChargesByHotel(hotelId: Long): Set<PercentageChargeDto> {
-        val records: Result<Record> = repository.findChargesByHotel(hotelId)
-        return records.map { PercentageChargeDto.ofRecord(it) }.toSet()
+            .sumOf { (1 + (it.percentage / 100)) * totalAmount.toDouble() }
     }
 }
