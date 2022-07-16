@@ -18,7 +18,7 @@ class PercentageChargeService(private val repository: PercentageChargeRepository
         firstNightPrice: BigDecimal
     ): Double {
         return percentageCharges.filter { it.appliedOn == PercentageAppliedOn.FIRST_NIGHT }
-            .sumOf { (1 + (it.percentage / 100)) * firstNightPrice.toDouble() }
+            .sumOf { (it.percentage / 100) * firstNightPrice.toDouble() }
     }
 
     private fun calculateTotalAmountCharges(
@@ -26,6 +26,6 @@ class PercentageChargeService(private val repository: PercentageChargeRepository
         totalAmount: BigDecimal
     ): Double {
         return percentageCharges.filter { it.appliedOn == PercentageAppliedOn.TOTAL_AMOUNT }
-            .sumOf { (1 + (it.percentage / 100)) * totalAmount.toDouble() }
+            .sumOf { (it.percentage / 100) * totalAmount.toDouble() }
     }
 }

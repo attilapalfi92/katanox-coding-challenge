@@ -38,7 +38,7 @@ class PercentageChargeServiceTest {
         val result =
             percentageChargeService.calculatePercentageCharges(hotelId, firstNightPrice, totalAmount)
 
-        assertEquals((1.3 * 10) + (1.2 * 30), result)
+        assertEquals((0.3 * 10) + (0.2 * 30), result)
     }
 
     private fun getPercentageCharges() = setOf(

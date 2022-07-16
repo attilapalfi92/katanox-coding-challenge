@@ -23,27 +23,36 @@ class SearchService(
         val availableRooms: Map<Long, Set<PriceDto>> = pricesByRoom.filter { it.value.size == nights }
 
         return SearchResponse(
-            rooms = availableRooms.entries.map { entry ->
-                val roomPrice = entry.value.sumOf { it.priceBeforeTax }
-                RoomResponse(
-                    hotelId = hotelId,
-                    roomId = entry.key,
-                    price = calculateTotalPrice(roomPrice, nights, entry, hotelId),
-                    currency = entry.value.first().currency
-                )
+            rooms = availableRooms.entries.map { roomPrices ->
+                createRoomResponse(roomPrices, hotelId, nights)
             }.toList()
+        )
+    }
+
+    private fun createRoomResponse(
+        roomPrices: Map.Entry<Long, Set<PriceDto>>,
+        hotelId: Long,
+        nights: Int
+    ): RoomResponse {
+        val roomPrice = roomPrices.value.sumOf { it.priceBeforeTax }
+        val totalPrice = calculateTotalPrice(roomPrice, nights, roomPrices.value.first().priceBeforeTax, hotelId)
+        return RoomResponse(
+            hotelId = hotelId,
+            roomId = roomPrices.key,
+            price = totalPrice,
+            currency = roomPrices.value.first().currency
         )
     }
 
     private fun calculateTotalPrice(
         roomPrice: BigDecimal,
         nights: Int,
-        entry: Map.Entry<Long, Set<PriceDto>>,
+        firstNightPrice: BigDecimal,
         hotelId: Long
     ): BigDecimal {
         val extraCharges = extraChargeService.calculateCharges(
             numberOfNights = nights,
-            firstNightPrice = entry.value.first().priceBeforeTax,
+            firstNightPrice = firstNightPrice,
             roomPrice = roomPrice,
             hotelId = hotelId
         )
