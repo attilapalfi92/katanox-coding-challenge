@@ -16,6 +16,7 @@ data class SearchResponse(
 data class RoomResponse(
     val hotelId: Long,
     val roomId: Long,
-    val price: BigDecimal,
+    val priceBeforeTax: BigDecimal,
+    val priceAfterTax: BigDecimal,
     val currency: String
 )

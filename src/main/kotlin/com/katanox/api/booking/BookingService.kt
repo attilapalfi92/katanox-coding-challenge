@@ -8,7 +8,7 @@ import java.util.*
 class BookingService(
     private val rabbitMQMessageSenderService: RabbitMqMessageSenderService
 ) {
-    fun booking(bookingRequest: BookingRequest?): Int {
+    fun booking(bookingRequest: BookingRequest): Long {
         // persist booking and get id
         val bookingId = Random().nextInt()
         //Map to BookingDTO

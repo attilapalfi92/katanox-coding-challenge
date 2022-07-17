@@ -4,7 +4,6 @@ import com.katanox.api.charges.ExtraChargeService
 import com.katanox.api.prices.PriceDto
 import com.katanox.api.prices.PriceService
 import org.springframework.stereotype.Service
-import java.math.BigDecimal
 import java.time.temporal.ChronoUnit
 
 @Service
@@ -24,38 +23,30 @@ class SearchService(
 
         return SearchResponse(
             rooms = availableRooms.entries.map { roomPrices ->
-                createRoomResponse(roomPrices, hotelId, nights)
+                calculatePricesAndCreateRoomResponse(roomPrices, hotelId, nights)
             }.toList()
         )
     }
 
-    private fun createRoomResponse(
+    private fun calculatePricesAndCreateRoomResponse(
         roomPrices: Map.Entry<Long, Set<PriceDto>>,
         hotelId: Long,
         nights: Int
     ): RoomResponse {
-        val roomPrice = roomPrices.value.sumOf { it.priceBeforeTax }
-        val totalPrice = calculateTotalPrice(roomPrice, nights, roomPrices.value.first().priceBeforeTax, hotelId)
+        val roomPriceBeforeTax = roomPrices.value.sumOf { it.priceBeforeTax }
+        val roomPriceAfterTax = roomPrices.value.sumOf { it.priceAfterTax }
+        val extraCharges = extraChargeService.calculateCharges(
+            numberOfNights = nights,
+            firstNightPrice = roomPrices.value.first().priceBeforeTax,
+            roomPrice = roomPriceBeforeTax,
+            hotelId = hotelId
+        )
         return RoomResponse(
             hotelId = hotelId,
             roomId = roomPrices.key,
-            price = totalPrice,
+            priceBeforeTax = roomPriceBeforeTax.add(extraCharges),
+            priceAfterTax = roomPriceAfterTax.add(extraCharges),
             currency = roomPrices.value.first().currency
         )
-    }
-
-    private fun calculateTotalPrice(
-        roomPrice: BigDecimal,
-        nights: Int,
-        firstNightPrice: BigDecimal,
-        hotelId: Long
-    ): BigDecimal {
-        val extraCharges = extraChargeService.calculateCharges(
-            numberOfNights = nights,
-            firstNightPrice = firstNightPrice,
-            roomPrice = roomPrice,
-            hotelId = hotelId
-        )
-        return roomPrice.add(extraCharges)
     }
 }

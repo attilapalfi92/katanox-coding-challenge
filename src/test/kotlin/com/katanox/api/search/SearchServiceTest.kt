@@ -31,7 +31,7 @@ class SearchServiceTest {
         val result = searchService.search(request)
 
         assertEquals(2, result.rooms.size)
-        val resultPrices = result.rooms.map { it.price.toInt() }.sorted().toTypedArray()
+        val resultPrices = result.rooms.map { it.priceBeforeTax.toInt() }.sorted().toTypedArray()
         val expectedPrices = listOf(3, 7).toTypedArray()
         assertArrayEquals(expectedPrices, resultPrices)
     }
@@ -45,7 +45,7 @@ class SearchServiceTest {
         val result = searchService.search(request)
 
         assertEquals(2, result.rooms.size)
-        val resultPrices = result.rooms.map { it.price.toInt() }.sorted().toTypedArray()
+        val resultPrices = result.rooms.map { it.priceBeforeTax.toInt() }.sorted().toTypedArray()
         val expectedPrices = listOf(6, 11).toTypedArray()
         assertArrayEquals(expectedPrices, resultPrices)
     }
@@ -89,6 +89,7 @@ class SearchServiceTest {
             quantity = 1,
             roomId = id,
             priceBeforeTax = BigDecimal.valueOf(price),
+            priceAfterTax = BigDecimal.valueOf(1.2 * price),
             currency = "EUR"
         )
     }

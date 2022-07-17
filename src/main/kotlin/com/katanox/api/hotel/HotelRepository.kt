@@ -1,16 +1,21 @@
 package com.katanox.api.hotel
 
 import com.katanox.test.sql.tables.Hotels
+import com.katanox.test.sql.tables.Prices
+import com.katanox.test.sql.tables.Rooms
 import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
+import java.math.BigDecimal
 
 @Repository
 class HotelRepository(private val dsl: DSLContext) {
 
-    fun insertHotel() {
-        val hotel = Hotels.HOTELS
-        dsl.insertInto(hotel, hotel.NAME, hotel.ROOMS)
-            .values("fake", 1)
-            .execute()
+    fun getVatForHotel(hotelId: Long): BigDecimal {
+        val alma  = dsl.select(Hotels.HOTELS.VAT)
+            .from(Hotels.HOTELS)
+            .where(Hotels.HOTELS.ID.equal(hotelId))
+            .fetch()
+
+        return alma[0].value1()
     }
 }

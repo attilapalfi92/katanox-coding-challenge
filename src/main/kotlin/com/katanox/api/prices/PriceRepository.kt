@@ -11,7 +11,7 @@ import java.time.LocalDate
 @Repository
 class PriceRepository(private val dsl: DSLContext) {
 
-    fun findPricesForDatesInHotel(dates: Set<LocalDate>, hotelId: Long): Result<Record> {
+    fun findPriceRecordsForDatesInHotel(dates: Set<LocalDate>, hotelId: Long): Result<Record> {
         return dsl.select()
             .from(PRICES)
             .join(ROOMS)
