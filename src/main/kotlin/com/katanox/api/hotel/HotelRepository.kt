@@ -1,8 +1,6 @@
 package com.katanox.api.hotel
 
 import com.katanox.test.sql.tables.Hotels
-import com.katanox.test.sql.tables.Prices
-import com.katanox.test.sql.tables.Rooms
 import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
 import java.math.BigDecimal

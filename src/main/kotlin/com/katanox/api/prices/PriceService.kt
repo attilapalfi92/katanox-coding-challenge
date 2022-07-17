@@ -2,16 +2,11 @@ package com.katanox.api.prices
 
 import com.katanox.api.date.DateConverter
 import com.katanox.api.hotel.HotelService
-import com.katanox.test.sql.tables.Prices
-import com.katanox.test.sql.tables.Prices.PRICES
-import com.katanox.test.sql.tables.records.PricesRecord
 import org.jooq.Record
 import org.jooq.Result
-import org.jooq.UpdateConditionStep
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.util.*
-import kotlin.collections.ArrayList
 
 @Service
 class PriceService(

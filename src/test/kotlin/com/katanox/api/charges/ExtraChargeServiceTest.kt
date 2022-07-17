@@ -2,9 +2,8 @@ package com.katanox.api.charges
 
 import com.katanox.api.charges.flat.FlatChargeService
 import com.katanox.api.charges.percentage.PercentageChargeService
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 import org.mockito.Mockito
 import org.mockito.kotlin.whenever
 import java.math.BigDecimal

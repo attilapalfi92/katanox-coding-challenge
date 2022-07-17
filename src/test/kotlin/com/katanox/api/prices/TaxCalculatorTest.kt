@@ -1,8 +1,7 @@
 package com.katanox.api.prices
 
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 import java.math.BigDecimal
 
 internal class TaxCalculatorTest {

@@ -1,6 +1,7 @@
 package com.katanox.api.search
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertDoesNotThrow
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.springframework.web.server.ResponseStatusException
 import java.time.LocalDate

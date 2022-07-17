@@ -33,8 +33,6 @@ import java.time.LocalDate
  */
 @SpringBootTest
 @TestPropertySource(locations = ["classpath:test.properties"])
-// If the tests were modifying the data:
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class SearchServiceIT {
 
     @Autowired

@@ -15,6 +15,15 @@ import java.time.LocalDate
 @Repository
 class PriceRepository(private val dsl: DSLContext) {
 
+    fun findPriceRecordsByDatesAndRoom(dates: Set<LocalDate>, roomId: Long): Result<Record> {
+        return dsl.select()
+            .from(PRICES)
+            .where(PRICES.ROOM_ID.equal(roomId))
+            .and(PRICES.DATE.`in`(dates))
+            .and(PRICES.QUANTITY.greaterThan(0))
+            .fetch()
+    }
+
     fun findPriceRecordsForDatesInHotel(dates: Set<LocalDate>, hotelId: Long): Result<Record> {
         return dsl.select()
             .from(PRICES)
