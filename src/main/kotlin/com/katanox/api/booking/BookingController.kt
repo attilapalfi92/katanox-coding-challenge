@@ -20,7 +20,7 @@ class BookingController(
         produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun booking(@RequestBody request: BookingRequest): ResponseEntity<BookingResponse> {
-        val result = bookingService.booking(request)
+        val result = bookingService.addBooking(request)
         return ResponseEntity(BookingResponse(result), HttpStatus.ACCEPTED)
     }
 }
