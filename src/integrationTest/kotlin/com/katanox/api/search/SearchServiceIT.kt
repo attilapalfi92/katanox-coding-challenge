@@ -1,17 +1,18 @@
 package com.katanox.api.search
 
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.TestPropertySource
+import java.math.BigDecimal
 import java.time.LocalDate
 
 @SpringBootTest
 @TestPropertySource(locations = ["classpath:test.properties"])
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+// If the tests were modifying the data:
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class SearchServiceIT {
 
     @Autowired
@@ -39,8 +40,20 @@ class SearchServiceIT {
          *      percentage charges: 0.1*100 + 0.15*660 = 109
          *      total: 819.0
          */
-        println(result)
+        assertEquals(BigDecimal.valueOf(692.5), result.rooms.first { it.roomId == 1L }.price)
+        assertEquals(BigDecimal.valueOf(819.0), result.rooms.first { it.roomId == 2L }.price)
+    }
 
-        // TODO: add proper asserts
+    @Test
+    fun `test search with no matching room for dates`() {
+        val request = SearchRequest(
+            checkin = LocalDate.of(2022, 3, 1),
+            checkout = LocalDate.of(2022, 3, 7),
+            hotelId = 1
+        )
+
+        val result = searchService.search(request)
+
+        assertTrue(result.rooms.isEmpty())
     }
 }
