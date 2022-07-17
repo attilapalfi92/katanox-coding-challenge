@@ -3,14 +3,14 @@ package com.katanox.api.prices
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.TestPropertySource
 import java.time.LocalDate
 import kotlin.test.assertEquals
 
 @SpringBootTest
 @TestPropertySource(locations = ["classpath:test.properties"])
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+// If the tests were modifying the data:
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class PriceServiceIT {
 
     @Autowired

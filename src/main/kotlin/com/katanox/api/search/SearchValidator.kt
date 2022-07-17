@@ -9,7 +9,8 @@ class SearchValidator {
 
     fun validateSearchRequest(request: SearchRequest) {
         if (request.checkout.isBefore(request.checkin.plusDays(1))) {
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Checkin date must be at least 1 day before checkout date.")
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST,
+                "Checkin date must be at least 1 day before checkout date.")
         }
     }
 }

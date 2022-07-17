@@ -14,10 +14,10 @@ build-docker: build-jar
 	docker build . -t katanox-api-impl:1.0
 
 build-run-docker: build-docker
-	docker-compose -f docker-compose-all.yml up
+	docker-compose -f docker-compose-all.yml up  --remove-orphans
 
 run-docker:
-	docker-compose -f docker-compose-all.yml up
+	docker-compose -f docker-compose-all.yml up  --remove-orphans
 
 run-deps:
-	docker-compose -f docker-compose-deps.yml up
+	docker-compose -f docker-compose-deps.yml up  --remove-orphans
