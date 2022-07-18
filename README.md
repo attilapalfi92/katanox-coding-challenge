@@ -1,3 +1,29 @@
+## System requirements
+Java 11, Maven, Docker, Docker-Compose
+
+## How to run
+### ```make build-run-docker```
+- builds api service jar
+- builds api service docker image
+- runs api service image and dependencies with docker compose
+
+Separate build and run commands are available, see Makefile for more info.
+
+### ```make run-deps```
+- runs the dependencies with docker compose
+- api service can be started with favored IDE, java -jar, etc 
+
+
+## How to access API
+
+Swagger UI is available at:
+
+http://localhost:8080/swagger-ui/index.html
+
+
+-----------------------------
+original content:
+
 # Katanox Coding Challenge
 
 The aim of this task is to refactor and extend an API using Java OR Kotlin and Spring Boot which allows users to search for
@@ -31,14 +57,14 @@ Check in: 01-04-2022, Check out: 03-04-2022, Hotel: A
 
 Hotel A has 2 room types and each type has a different price per day shown in the table below:
 
-| **Room ID** | **Date**       | **Available Rooms** | **Price before tax** |
-|---------|------------|-----------------|------------------|
-| R1      | 01-04-2022 | 2               | 103              |
-| R1      | 02-04-2022 | 1               | 99               |
-| R1      | 03-04-2022 | 2               | 110              |
-| R2      | 01-04-2022 | 5               | 113              |
-| R2      | 02-04-2022 | 6               | 109              |
-| R2      | 03-04-2022 | 4               | 123              |
+| **Room ID** | **Date**   | **Available Rooms** | **Price before tax** |
+|-------------|------------|---------------------|----------------------|
+| R1          | 01-04-2022 | 2                   | 103                  |
+| R1          | 02-04-2022 | 1                   | 99                   |
+| R1          | 03-04-2022 | 2                   | 110                  |
+| R2          | 01-04-2022 | 5                   | 113                  |
+| R2          | 02-04-2022 | 6                   | 109                  |
+| R2          | 03-04-2022 | 4                   | 123                  |
 
 The extra flat charges table looks like the following table
 
