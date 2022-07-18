@@ -62,12 +62,8 @@ class PriceRepository(private val dsl: DSLContext) {
             updates.add(
                 dsl.update(PRICES)
                     .set(PRICES.QUANTITY, it[PRICES.QUANTITY] - 1)
-                    .where(
-                        PRICES.ROOM_ID.eq(it[PRICES.ROOM_ID])
-                    )
-                    .and(
-                        PRICES.DATE.eq(it[PRICES.DATE])
-                    )
+                    .where(PRICES.ROOM_ID.eq(it[PRICES.ROOM_ID]))
+                    .and(PRICES.DATE.eq(it[PRICES.DATE]))
             )
         }
 
