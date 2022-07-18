@@ -9,11 +9,11 @@ import java.math.BigDecimal
 class HotelRepository(private val dsl: DSLContext) {
 
     fun getVatForHotel(hotelId: Long): BigDecimal {
-        val alma  = dsl.select(Hotels.HOTELS.VAT)
+        val records  = dsl.select(Hotels.HOTELS.VAT)
             .from(Hotels.HOTELS)
             .where(Hotels.HOTELS.ID.equal(hotelId))
             .fetch()
 
-        return alma[0].value1()
+        return records[0].value1()
     }
 }
